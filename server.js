@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
-const drinks_array = require(__dirname + "/public/drinks.json");
-module.exports = drinks_array;
+const product_data = require(__dirname + "/public/drinks.json");
 const qs = require('querystring');
 
 app.use(express.urlencoded({ extended: true }));
