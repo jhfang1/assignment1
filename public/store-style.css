@@ -221,7 +221,7 @@ a{
 .w3-btn,.w3-button{
   border:none;
   display:inline-block;
-  padding:8px 16px;
+  padding:8px 20px;
   vertical-align:middle;
   overflow:hidden;
   text-decoration:none;
@@ -445,6 +445,7 @@ a{
 }
 .w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,.w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before, .w3-cell-row:before,.w3-cell-row:after,.w3-clear:after,.w3-clear:before,.w3-bar:before,.w3-bar:after{
   content:"";
+  background:#3a3a3a;
   display:table;
   clear:both
 }
