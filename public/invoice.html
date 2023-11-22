@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <!--Taken from WesCossick https://github.com/sparksuite/simple-html-invoice-template/blob/master/invoice.html, Modified by Jonathan-->
 <html>
+	<script src="./product_data.js"></script>
+	<script>
+		let params = (new URL(document.location)).searchParams;
+		let quantities = [];
+		// form was submitted so process the invoice
+		if (params.has('purchase_submit')) {
+			for (i = 0; i < drinks.length; i++) {
+				if (params.has(`quantity${i}`)) {
+					a_qty = params.get(`quantity${i}`);
+					quantities[i] = a_qty;
+				}
+			}
+		} else {
+			document.write('no form submitted');
+		}
+			onsole.log(quantities);
+		</script>
 	<head>
 		<meta charset="utf-8" />
     <link rel="stylesheet" href="./invoice-style.css">

@@ -17,13 +17,21 @@ app.get("/product_data.js", function (req, res) {
 });
 
 //Validate Purcahse
-app.post('/process_purchase', function (request, response, next) {
-  console.log(request.body);
-  // validate quantities 
-  var q = request.body['quantity_textbox'];
-  if (typeof q != 'undefined') {
-      response.send(`<b>Thank you for purchasing ${q} things!</b>`);
-  }});
+app.post('/process_form', function (request, response, next) {
+  console.log('in process+form', request.body);
+  
+  let errors = {}; //assume no errors
+
+  var qstr = qs.stringify(request.body);
+  //create invoice if valid
+  if (Object.entries(errors).length === 0 ) {
+    response.redirect(`invoice.html?${qstr}`);
+  }
+  //not valid
+  else { 
+    response.redirect(`product_display.html`)
+  }
+});
 
 //rootdir will be in public starting from index.html
 app.use(express.static(__dirname + '/public'));
