@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--Template created by w3schools.com, modified by Jonathan-->
 <html>
 <head>
 <title>Jasmine's Store</title>
@@ -7,12 +8,14 @@
 <link rel="stylesheet" href="w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 <script src="./product_data.js" type="text/javascript"></script>
+<script>
+</script>
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
 </style>
 </head>
-<form action="./invoice.html" method="POST">
+<form name="quantity_form" action="./process_purchase" method="POST">
 <body>
 
 <!-- Sidebar (hidden by default) -->
@@ -40,24 +43,57 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <!-- Generate Items on storefront-->
   <script>
     for (let i in drinks) {
-      let quantity_name =  "quantity" + i;
-	    let quantity_id = quantity_name + "_label";
       document.write(`
         <div class ="w3-quarter">
           <img src="${drinks[i].image}" alt="${drinks[i].name}" style="width:100%">
           <h3>${drinks[i].name}</h3>
           <p> Currently $${drinks[i].price} for 1 </p>
-          <label for="${quantity_id}">Quantity Desired:</label>
-					<input id="${quantity_id}" type="text" name="${quantity_name}">
+          <span id='qty${i}_msg_txt'>Amount:</span>
+					<input id="qty${i}_txt" type="text" name="qty${i}_txt" onkeyup="checkQtyTxt(this);">
         </div>
       `)
     }
   </script>
+    <input disabled id="purchase_button" class="w3-purchase" value="Purchase" type="submit"></input>
+  <script>
+    function quantitiesValid() {
+      let quantity = [];
+      for (let i in drinks) {
+        var numberValid = document.getElementById(`qty${i}_txt`).value;
+        if (numberValid) {
+          document.getElementById(`qty${i}_txt` + "_message").innerHTML = "Please Enter a Value"
+          return false;
+        } 
+        return true;
+      }}
 
-<input class="w3-purchase" type="submit" value="Purchase">
+      //Check quantity text box value
+      function checkQtyTxt(the_qty_txt) {
+        let errors = isNonNegInt(the_qty_txt.value);
+        purchase_button.disabled = true;
+        if (errors.length == 0) {
+          purchase_button.disabled = false;
+        }
+        document.getElementById(the_qty_txt.id + "_message").innerHTML = errors.join(", ");
+     }
+
+      function isNonNegInt(q) {
+        errors = []; // assume no errors at first
+        if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
+        else {
+            if (q < 0) errors.push('Negative value!'); // Check if it is non-negative
+            if (parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
+        }
+        return errors;
+      }
+
+   
+  </script>
+
+
 
 <!-- End page content -->
-</div>
+</div>  
 
 <script>
 // Script to open and close sidebar
